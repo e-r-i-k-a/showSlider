@@ -12269,12 +12269,12 @@ var _Show2 = _interopRequireDefault(_Show);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactDom.render)(_react2.default.createElement(
-  _reactRouterDom.BrowserRouter,
+  _reactRouterDom.HashRouter,
   null,
   _react2.default.createElement(
     'main',
     { className: 'app' },
-    _react2.default.createElement(_reactRouterDom.Route, { component: _Show2.default })
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/*', component: _Show2.default })
   )
 ), document.getElementById('root'));
 
@@ -27408,29 +27408,26 @@ var Show = function (_Component) {
       _axios2.default.get('http://localhost:3000/shows').then(function (res) {
         return res.data;
       }).then(function (shows) {
-        _this2.setState({ shows: shows, selectedShow: shows[0] });
+        var selectedId = _this2.props.location.search.split('=')[1];
+        var selectedShow = selectedId ? shows.filter(function (show) {
+          return show.id === selectedId;
+        })[0] : shows[0];
+        _this2.setState({ shows: shows, selectedShow: selectedShow });
       });
-      console.log('component did mount');
     }
   }, {
     key: 'selectShow',
     value: function selectShow() {
       var shows = this.state.shows;
       var selectedId = this.props.location.search.split('=')[1];
-      if (selectedId) {
-        return shows.filter(function (show) {
-          return show.id === selectedId;
-        })[0];
-      } else {
-        return this.state.selectedShow;
-      }
+      return selectedId ? shows.filter(function (show) {
+        return show.id === selectedId;
+      })[0] : shows[0];
     }
   }, {
     key: 'render',
     value: function render() {
-      var selectedShow = this.selectShow();
-      console.log('selectedshow', selectedShow);
-      console.log('state', this.state);
+      var selectedShow = this.selectShow() || this.state.selectedShow;
       return _react2.default.createElement(
         'main',
         { className: 'main' },

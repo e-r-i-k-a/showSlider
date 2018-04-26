@@ -17,25 +17,20 @@ export default class Show extends Component {
     axios.get('http://localhost:3000/shows')
       .then(res => res.data)
       .then(shows => {
-        this.setState({ shows, selectedShow: shows[0] })
+        let selectedId = this.props.location.search.split('=')[1]
+        let selectedShow = selectedId ? shows.filter((show) => show.id === selectedId)[0] : shows[0]
+        this.setState({ shows, selectedShow })
       })
-      console.log('component did mount')
   }
 
   selectShow() {
     let shows = this.state.shows;
     let selectedId = this.props.location.search.split('=')[1]
-    if (selectedId) {
-      return shows.filter((show) => show.id === selectedId)[0]
-    } else {
-      return this.state.selectedShow;
-    }
+    return selectedId ? shows.filter((show) => show.id === selectedId)[0] : shows[0]
   }
 
   render() {
-    let selectedShow = this.selectShow()
-    console.log('selectedshow',selectedShow)
-    console.log('state', this.state)
+    let selectedShow = this.selectShow() ||this.state.selectedShow
     return (
       <main className='main'>
         <section className='main-selectedShow'>
