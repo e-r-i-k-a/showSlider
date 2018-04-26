@@ -17,25 +17,27 @@ export default class Slider extends Component {
 
   render() {
     const shows = this.props.shows;
+    let selectedId = this.props.selectedShow.id;
     return (
-      <div>
-        <nav className='slider'>
-          {shows.map(show => {
-            return <section
-              key={show.id}
-              id={show.id}>
-              <Link
-                to={`?id=${show.id}`}
-                onClick={e => this.handleClick(e)}>
-                <img
-                  alt={show.title}
-                  className='slider-thumbnail'
-                  src={show.product_image_url} />
-              </Link>
-            </section>
-          })}
-        </nav>
-      </div>
+      <nav className='slider'>
+        {shows.map((show, i) => {
+          let caption = (show.id === selectedId) ? <figcaption>{i + 1}</figcaption> : null
+          return <figure
+            key={show.id}
+            id={i}>
+            <Link
+              to={`?id=${show.id}`}
+              onClick={e => this.handleClick(e)}>
+              <img
+                alt={show.title}
+                className='slider-thumbnail'
+                src={show.product_image_url}
+                id={show.id} />
+            </Link>
+            {caption}
+          </figure>
+        })}
+      </nav>
     )
   }
 }

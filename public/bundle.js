@@ -27432,13 +27432,12 @@ var Show = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('state', this.state);
       var selectedShow = this.selectShow() || this.state.selectedShow;
       return _react2.default.createElement(
         'main',
         { className: 'main' },
         _react2.default.createElement(
-          'section',
+          'article',
           { className: 'main-selectedShow' },
           _react2.default.createElement('img', {
             alt: selectedShow.title,
@@ -27456,7 +27455,7 @@ var Show = function (_Component) {
           )
         ),
         _react2.default.createElement('hr', null),
-        _react2.default.createElement(_Slider2.default, { shows: this.state.shows })
+        _react2.default.createElement(_Slider2.default, { shows: this.state.shows, selectedShow: selectedShow })
       );
     }
   }]);
@@ -28391,33 +28390,37 @@ var Slider = function (_Component) {
       var _this2 = this;
 
       var shows = this.props.shows;
+      var selectedId = this.props.selectedShow.id;
       return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'nav',
-          { className: 'slider' },
-          shows.map(function (show) {
-            return _react2.default.createElement(
-              'section',
+        'nav',
+        { className: 'slider' },
+        shows.map(function (show, i) {
+          var caption = show.id === selectedId ? _react2.default.createElement(
+            'figcaption',
+            null,
+            i + 1
+          ) : null;
+          return _react2.default.createElement(
+            'figure',
+            {
+              key: show.id,
+              id: i },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
               {
-                key: show.id,
-                id: show.id },
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                {
-                  to: '?id=' + show.id,
-                  onClick: function onClick(e) {
-                    return _this2.handleClick(e);
-                  } },
-                _react2.default.createElement('img', {
-                  alt: show.title,
-                  className: 'slider-thumbnail',
-                  src: show.product_image_url })
-              )
-            );
-          })
-        )
+                to: '?id=' + show.id,
+                onClick: function onClick(e) {
+                  return _this2.handleClick(e);
+                } },
+              _react2.default.createElement('img', {
+                alt: show.title,
+                className: 'slider-thumbnail',
+                src: show.product_image_url,
+                id: show.id })
+            ),
+            caption
+          );
+        })
       );
     }
   }]);

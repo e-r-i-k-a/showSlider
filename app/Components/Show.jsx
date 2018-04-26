@@ -30,20 +30,19 @@ class Show extends Component {
   }
 
   render() {
-    console.log('state',this.state)
     let selectedShow = this.selectShow() || this.state.selectedShow
     return (
       <main className='main'>
-        <section className='main-selectedShow'>
+        <article className='main-selectedShow'>
           <img
             alt={selectedShow.title}
             className='main-selectedShow-img'
             src={selectedShow.product_image_url} />
           <div className='main-selectedShow-episodeCount'>{`${selectedShow.episodes} EPISODES`}</div>
           <div className='main-selectedShow-title'>{selectedShow.title}</div>
-        </section>
+        </article>
         <hr />
-        <Slider shows={this.state.shows} />
+        <Slider shows={this.state.shows} selectedShow={selectedShow} />
       </main>
     )
   }
