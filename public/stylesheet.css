@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 0px 0px 50px;
+  font-family: 'Oswald';
   font-weight: bold;
 }
 .main-selectedShow-img {
@@ -22,6 +23,7 @@
   overflow: scroll;
   overflow-y: hidden;
   width: 100%;
+  font-family: 'Oswald';
 }
 figure {
   margin: 0px;
@@ -45,11 +47,14 @@ figcaption {
     justify-content: center;
     width: 100%;
   }
+  hr {
+    order: 1;
+  }
   .main-selectedShow {
     order: 2;
   }
   .main-selectedShow-img {
-    height: 600px;
+    height: 400px;
     padding-top: 5%;
   }
   .main-selectedShow-episodeCount {
@@ -57,9 +62,6 @@ figcaption {
   }
   .main-selectedShow-title {
     font-size: 40px;
-  }
-  hr {
-    order: 1;
   }
   .slider {
     justify-content: center;
