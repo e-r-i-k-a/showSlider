@@ -1,0 +1,42 @@
+//to watch and compile, run: 'stylus -w public/stylus/index.styl -o public/stylesheet.css'
+
+@import 'public/stylus/variables'
+
+.main-selectedShow
+  display flex
+  flex-flow column
+  align-items center
+  justify-content: center
+  padding 0px 0px 50px
+
+.main-selectedShow-img
+  height thumbnail*5
+  padding-top 25%
+
+.slider
+  display flex
+  overflow scroll
+
+.slider-thumbnail
+  object-fit cover
+  object-position top
+  width thumbnail
+  height thumbnail
+  margin 15px
+
+
+@media desktop
+  main
+    display flex
+    flex-flow column
+    align-items center
+  hr
+    order 1
+  .main-selectedShow
+    order 2
+  .main-selectedShow-img
+    height thumbnail*12
+    padding-top 5%
+  .slider-thumbnail
+    height thumbnail*2
+    width thumbnail*2
