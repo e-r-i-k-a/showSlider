@@ -5,6 +5,14 @@ import axios from 'axios';
 export default class Slider extends Component {
   constructor(props) {
     super(props)
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    e.target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    })
   }
 
   render() {
@@ -17,7 +25,8 @@ export default class Slider extends Component {
               key={show.id}
               id={show.id}>
               <Link
-                to={`/show?id=${show.id}`}>
+                to={`?id=${show.id}`}
+                onClick={e => this.handleClick(e)}>
                 <img
                   alt={show.title}
                   className='slider-thumbnail'

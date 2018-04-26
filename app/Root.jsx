@@ -1,13 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { BrowserRouter as Router, Route, Switch, Link, HashRouter, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Show from './Components/Show'
 
 render(
-  <HashRouter>
+  <Router>
     <main className='app'>
-      <Route path='/*' component={Show} />
+      <Route
+        path='/*'
+        component={({location}) => <Show query={location.search}/>} />
     </main>
-  </HashRouter>,
+  </Router>,
   document.getElementById('root')
 )

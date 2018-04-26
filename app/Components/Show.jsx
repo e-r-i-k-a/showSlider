@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Slider from './Slider'
+import { withRouter } from 'react-router-dom'
 
-export default class Show extends Component {
+class Show extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -15,22 +15,23 @@ export default class Show extends Component {
 
   componentDidMount() {
     axios.get('http://localhost:3000/shows')
-      .then(res => res.data)
-      .then(shows => {
-        let selectedId = this.props.location.search.split('=')[1]
-        let selectedShow = selectedId ? shows.filter((show) => show.id === selectedId)[0] : shows[0]
-        this.setState({ shows, selectedShow })
-      })
+    .then(res => res.data)
+    .then(shows => {
+      let selectedId = this.props.query.split('=')[1]
+      let selectedShow = selectedId ? shows.filter((show) => show.id === selectedId)[0] : shows[0]
+      this.setState({ shows, selectedShow })
+    })
   }
 
   selectShow() {
     let shows = this.state.shows;
-    let selectedId = this.props.location.search.split('=')[1]
+    let selectedId = this.props.query.split('=')[1]
     return selectedId ? shows.filter((show) => show.id === selectedId)[0] : shows[0]
   }
 
   render() {
-    let selectedShow = this.selectShow() ||this.state.selectedShow
+    console.log('state',this.state)
+    let selectedShow = this.selectShow() || this.state.selectedShow
     return (
       <main className='main'>
         <section className='main-selectedShow'>
@@ -47,3 +48,5 @@ export default class Show extends Component {
     )
   }
 }
+
+export default withRouter(Show);

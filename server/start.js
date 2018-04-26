@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-// const Show = require('../app/Components/Show')
 
 module.exports = app
   .use(express.static(__dirname + '/public')) // Serve static files from ../public
@@ -14,4 +13,4 @@ module.exports = app
     res.status(err.status || 500).send(err.message || 'Internal server error.')
   })
 
-console.log("app done been started")
+console.log("app done been started on http://localhost:3000/")

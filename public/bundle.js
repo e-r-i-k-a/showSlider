@@ -12269,12 +12269,17 @@ var _Show2 = _interopRequireDefault(_Show);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactDom.render)(_react2.default.createElement(
-  _reactRouterDom.HashRouter,
+  _reactRouterDom.BrowserRouter,
   null,
   _react2.default.createElement(
     'main',
     { className: 'app' },
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/*', component: _Show2.default })
+    _react2.default.createElement(_reactRouterDom.Route, {
+      path: '/*',
+      component: function component(_ref) {
+        var location = _ref.location;
+        return _react2.default.createElement(_Show2.default, { query: location.search });
+      } })
   )
 ), document.getElementById('root'));
 
@@ -27366,8 +27371,6 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(58);
-
 var _axios = __webpack_require__(105);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -27375,6 +27378,8 @@ var _axios2 = _interopRequireDefault(_axios);
 var _Slider = __webpack_require__(258);
 
 var _Slider2 = _interopRequireDefault(_Slider);
+
+var _reactRouterDom = __webpack_require__(58);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27408,7 +27413,7 @@ var Show = function (_Component) {
       _axios2.default.get('http://localhost:3000/shows').then(function (res) {
         return res.data;
       }).then(function (shows) {
-        var selectedId = _this2.props.location.search.split('=')[1];
+        var selectedId = _this2.props.query.split('=')[1];
         var selectedShow = selectedId ? shows.filter(function (show) {
           return show.id === selectedId;
         })[0] : shows[0];
@@ -27419,7 +27424,7 @@ var Show = function (_Component) {
     key: 'selectShow',
     value: function selectShow() {
       var shows = this.state.shows;
-      var selectedId = this.props.location.search.split('=')[1];
+      var selectedId = this.props.query.split('=')[1];
       return selectedId ? shows.filter(function (show) {
         return show.id === selectedId;
       })[0] : shows[0];
@@ -27427,6 +27432,7 @@ var Show = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log('state', this.state);
       var selectedShow = this.selectShow() || this.state.selectedShow;
       return _react2.default.createElement(
         'main',
@@ -27458,7 +27464,7 @@ var Show = function (_Component) {
   return Show;
 }(_react.Component);
 
-exports.default = Show;
+exports.default = (0, _reactRouterDom.withRouter)(Show);
 
 /***/ }),
 /* 240 */
@@ -28365,12 +28371,25 @@ var Slider = function (_Component) {
   function Slider(props) {
     _classCallCheck(this, Slider);
 
-    return _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props));
+
+    _this.handleClick = _this.handleClick.bind(_this);
+    return _this;
   }
 
   _createClass(Slider, [{
+    key: 'handleClick',
+    value: function handleClick(e) {
+      e.target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var shows = this.props.shows;
       return _react2.default.createElement(
         'div',
@@ -28387,7 +28406,10 @@ var Slider = function (_Component) {
               _react2.default.createElement(
                 _reactRouterDom.Link,
                 {
-                  to: '/show?id=' + show.id },
+                  to: '?id=' + show.id,
+                  onClick: function onClick(e) {
+                    return _this2.handleClick(e);
+                  } },
                 _react2.default.createElement('img', {
                   alt: show.title,
                   className: 'slider-thumbnail',
