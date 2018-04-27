@@ -10,8 +10,7 @@ export default class Slider extends Component {
 
   handleClick(e) {
     e.target.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
+      behavior: 'smooth'
     })
   }
 
@@ -21,7 +20,7 @@ export default class Slider extends Component {
     return (
       <nav className='slider'>
         {shows.map((show, i) => {
-          let caption = (show.id === selectedId) ? <figcaption>{i + 1}</figcaption> : null
+          let selected = (show.id === selectedId)
           return <figure
             key={show.id}
             id={i}>
@@ -33,8 +32,11 @@ export default class Slider extends Component {
                 className='slider-thumbnail'
                 src={show.product_image_url}
                 id={show.id} />
+              <div
+                className='slider-shadow'
+                style={{display: selected ? 'none' : 'flex'}}></div>
             </Link>
-            {caption}
+            <figcaption style={{display: selected ? 'flex' : 'none'}}>{i + 1}</figcaption>
           </figure>
         })}
       </nav>

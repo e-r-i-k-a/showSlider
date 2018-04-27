@@ -28380,8 +28380,7 @@ var Slider = function (_Component) {
     key: 'handleClick',
     value: function handleClick(e) {
       e.target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
+        behavior: 'smooth'
       });
     }
   }, {
@@ -28395,11 +28394,7 @@ var Slider = function (_Component) {
         'nav',
         { className: 'slider' },
         shows.map(function (show, i) {
-          var caption = show.id === selectedId ? _react2.default.createElement(
-            'figcaption',
-            null,
-            i + 1
-          ) : null;
+          var selected = show.id === selectedId;
           return _react2.default.createElement(
             'figure',
             {
@@ -28416,9 +28411,16 @@ var Slider = function (_Component) {
                 alt: show.title,
                 className: 'slider-thumbnail',
                 src: show.product_image_url,
-                id: show.id })
+                id: show.id }),
+              _react2.default.createElement('div', {
+                className: 'slider-shadow',
+                style: { display: selected ? 'none' : 'flex' } })
             ),
-            caption
+            _react2.default.createElement(
+              'figcaption',
+              { style: { display: selected ? 'flex' : 'none' } },
+              i + 1
+            )
           );
         })
       );
