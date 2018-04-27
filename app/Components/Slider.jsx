@@ -22,21 +22,27 @@ export default class Slider extends Component {
         {shows.map((show, i) => {
           let selected = (show.id === selectedId)
           return <figure
-            key={show.id}
-            id={i}>
+            id={i}
+            key={show.id}>
             <Link
-              to={`?id=${show.id}`}
-              onClick={e => this.handleClick(e)}>
+              onClick={e => this.handleClick(e)}
+              to={`?id=${show.id}`}>
               <img
                 alt={show.title}
                 className='slider-thumbnail'
-                src={show.product_image_url}
-                id={show.id} />
+                id={show.id}
+                title={show.title}
+                src={show.product_image_url}/>
               <div
+                alt={show.title}
                 className='slider-shadow'
-                style={{display: selected ? 'none' : 'flex'}}></div>
+                title={show.title}
+                style={{display: selected ? 'none' : 'flex'}}>
+              </div>
             </Link>
-            <figcaption style={{display: selected ? 'flex' : 'none'}}>{i + 1}</figcaption>
+            <figcaption
+              style={{display: selected ? 'flex' : 'none'}}>{i + 1}
+            </figcaption>
           </figure>
         })}
       </nav>

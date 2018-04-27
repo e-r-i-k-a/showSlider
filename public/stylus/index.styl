@@ -2,6 +2,10 @@
 
 @import 'public/stylus/variables'
 
+body
+  min-width 320px
+  // width 100%
+  overflow hidden
 //show
 .main-selectedShow
   verticalCenter()
@@ -60,3 +64,10 @@ figcaption
   .slider-thumbnail, .slider-shadow
     height thumbnail*2
     width thumbnail*2
+  .slider-shadow:hover
+    background rgba(0,0,0,0)
+
+@media extraLarge
+  body
+    width 980px
+    margin auto

@@ -28398,27 +28398,31 @@ var Slider = function (_Component) {
           return _react2.default.createElement(
             'figure',
             {
-              key: show.id,
-              id: i },
+              id: i,
+              key: show.id },
             _react2.default.createElement(
               _reactRouterDom.Link,
               {
-                to: '?id=' + show.id,
                 onClick: function onClick(e) {
                   return _this2.handleClick(e);
-                } },
+                },
+                to: '?id=' + show.id },
               _react2.default.createElement('img', {
                 alt: show.title,
                 className: 'slider-thumbnail',
-                src: show.product_image_url,
-                id: show.id }),
+                id: show.id,
+                title: show.title,
+                src: show.product_image_url }),
               _react2.default.createElement('div', {
+                alt: show.title,
                 className: 'slider-shadow',
+                title: show.title,
                 style: { display: selected ? 'none' : 'flex' } })
             ),
             _react2.default.createElement(
               'figcaption',
-              { style: { display: selected ? 'flex' : 'none' } },
+              {
+                style: { display: selected ? 'flex' : 'none' } },
               i + 1
             )
           );

@@ -1,3 +1,7 @@
+body {
+  min-width: 320px;
+  overflow: hidden;
+}
 .main-selectedShow {
   display: flex;
   flex-flow: column;
@@ -77,5 +81,14 @@ figcaption {
   .slider-shadow {
     height: 100px;
     width: 100px;
+  }
+  .slider-shadow:hover {
+    background: rgba(0,0,0,0);
+  }
+}
+@media only screen and (min-width: 980px) {
+  body {
+    width: 980px;
+    margin: auto;
   }
 }
